@@ -1,0 +1,46 @@
+<section class="py-6" id="features">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 mx-auto">
+        <h2 class="dot-circle">The new psychological system of the UCAS</h2>
+        <div class="row mt-6">
+          <div class="col-sm-6 mb-4">
+            <h4>Log-in of students</h4>
+            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum in nisi commodo, tempus odio a, vestibulum nibh.</p>
+          </div>
+          <div class="col-sm-6 mb-4">
+            <h4>Log-in of teachers</h4>
+            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum in nisi commodo, tempus odio a, vestibulum nibh.</p>
+          </div>
+          <div class="col-sm-6 mb-4">
+            <h4>Release the Location</h4>
+            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum in nisi commodo, tempus odio a, vestibulum nibh.</p>
+          </div>
+          <div class="col-sm-6 mb-4">
+            <h4>Manage your release</h4>
+            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum in nisi commodo, tempus odio a, vestibulum nibh.</p>
+          </div>
+          <div class="col-sm-6 mb-4">
+            <h4>Do a schedule</h4>
+            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum in nisi commodo, tempus odio a, vestibulum nibh.</p>
+          </div>
+          <div class="col-sm-6 mb-4">
+            <h4 class="d-flex flex-row align-items-center">New function coming soon <span class="badge badge-primary badge-feature ml-1 mt-1">new</span> </h4>
+            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum in nisi commodo, tempus odio a, vestibulum nibh.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-md-6 mx-auto text-center">
+        <% unless teacher_signed_in? || student_signed_in? %>
+        <h5 class="mb-4">Ready to Book?</h5>
+<!--        <a href="#" class="btn btn-primary">Get started now</a>-->
+
+          <a href="students/sign_in" class = "btn btn-primary">Get started now</a>
+
+          <% end %>
+      </div>
+    </div>
+  </div>
+</section>

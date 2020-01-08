@@ -1,0 +1,43 @@
+<style>
+  .field{width: 18%;margin: 0 ; padding: 0}
+
+</style>
+<%= form_for(@location) do |form| %>
+  <% if @location.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@location.errors.count, "error") %> prohibited this location from being saved:</h2>
+
+      <ul>
+        <% @location.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <table class="newLocation">
+    <thead>
+    <th class="filed">New Location</th>
+    <th class="field">
+      <%= form.label :place %>
+      <%= form.select :place, Location.places.keys.map {|r| [r.humanize, r]}%>
+    </th>
+    <th class="field">
+      <%= form.label :weekday %>
+      <%= form.select :weekday, Location.weekdays.keys.map {|r| [r.humanize, r]} %>
+    </th>
+    <th class="field">
+      <%= form.label :start_time, "Start time" %>
+      <%= form.time_select :start_time, {minute_step: 30, start_hour: 7, end_hour: 21} %>
+    </th>
+    <!--  <div class="field">-->
+    <%#= form.label :end_time, "Finish time" %>
+    <%#= form.hidden_field :end_time, calc_end_time(start_time) %>
+    <!--  </div>-->
+    <th class="actions">
+      <%= form.submit "New location" %>
+    </th>
+    </thead>
+
+  </table>
+
+<% end %>

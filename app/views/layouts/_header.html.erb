@@ -1,0 +1,120 @@
+<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+<!--Inter UI font-->
+<link href="https://rsms.me/inter/inter-ui.css" rel="stylesheet">
+
+<!--vendors styles-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- Bootstrap CSS / Color Scheme -->
+<link rel="stylesheet" href="css/default.css" id="theme-color">
+<style >
+  .head{background-color: #F7F7F7}
+  .head-label:hover{background-color: yellow}
+  a{font-family: "Microsoft YaHei";color: rgba(0,0,0,0.7);font-weight: bold}
+  .mark{ background-color: #F7F7F7;font-family: "Inter UI", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-weight: 900;font-size: 2.5rem}
+  li{padding: 20px}
+  .info{position: relative;left: 80%;top:1%;font-family: KaiTi}
+  body{background-color: #F7F7F7}
+
+</style>
+
+<header class="sticky-top sticky-navigation head">
+
+  <div class="container">
+    <nav class="navbar navbar-expand-md navbar-light">
+      <a class="navbar-brand heading-black mark" >
+        MCB
+      </a>
+      <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse"
+              data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span data-feather="grid"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item ">
+            <a class="nav-link page-scroll " href="#features"><%= link_to "MCB", root_path %></a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link page-scroll" href="#pricing"><%= link_to "Help", help_path %></a>
+          </li>
+          <% unless teacher_signed_in? || student_signed_in? %>
+          <li class="nav-item ">
+            <a class="nav-link page-scroll" href="#help"><%=  link_to "Student sign up", students_sign_up_path %></a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link page-scroll" href="#blog"><%=  link_to "Teacher sign up", teachers_sign_up_path  %></a>
+          </li>
+            <li class="nav-item ">
+              <a class="nav-link page-scroll" href="#blog"><%= link_to "Teacher sign in", teachers_sign_in_path %></a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link page-scroll" href="#blog"><%= link_to "Student sign in", students_sign_in_path %></a>
+            </li>
+            <% end %>
+            <% if teacher_signed_in? %>
+            <li class="nav-item ">
+              <a class="nav-link page-scroll" href="#blog"><%= link_to "Schedules", teachers_schedules_path %></a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link page-scroll" href="#blog"><%= link_to "Locations", teachers_locations_path %></a>
+            </li>
+            <li class="nav-item ">
+              <% if current_teacher.admin? %>
+              <a class="nav-link page-scroll" href="#blog"><%= link_to "Settings", rails_admin_path %></a>
+                <% end %>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link page-scroll" href="#blog"><%= link_to "Sign out", destroy_teacher_session_path, method: "delete" %></a>
+            </li>
+            <% elsif student_signed_in? %>
+            <li class="nav-item ">
+              <a class="nav-link page-scroll" href="#blog"><%= link_to "Schedules", students_schedule_path %></a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link page-scroll" href="#blog"><%= link_to "Settings", '#'  %></a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link page-scroll" href="#blog"><%= link_to "Sign out", destroy_student_session_path, method: "delete" %></a>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  <hr style="width:100%;">
+</header>
+
+<!--<header>-->
+
+<!--    <div class = "col-md-2"><%#= link_to "MCB", root_path %></div>-->
+<!--    <div class = "col-md-2"><%#= link_to "Help", help_path %></div>-->
+  <%# unless teacher_signed_in? || student_signed_in? %>
+<!--      <div class = "col-md-2"><%#=  link_to "Student sign up", students_sign_up_path %></div>-->
+<!--      <div class = "col-md-2"><%#=  link_to "Teacher sign up", teachers_sign_up_path  %></div>-->
+<!--      <div class = "col-md-2"><%#= link_to "Teacher sign in", teachers_sign_in_path %></div>-->
+<!--      <div class = "col-md-2"><%#= link_to "Student sign in", students_sign_in_path %></div>-->
+<!--        </th>-->
+<!--      </table>-->
+<!--    <hr style="width:1000PX;">-->
+  <%# end %>
+  <%# if teacher_signed_in? %>
+    <%#= link_to "Schedules", teachers_schedules_path ,class:'head-label10'%>
+    <%#= link_to "Locations", teachers_locations_path ,class:'head-label11'%>
+    <%#= link_to "Settings", '#' ,class:'head-label12'%>
+    <%#= link_to "Sign out", destroy_teacher_session_path, method: "delete" ,class:'head-label13'%>
+<!--    <div class="info">-->
+<!--      当前登录老师&nbsp;-->
+      <%#= current_teacher.role %>
+      <%#= current_teacher.name %>
+<!--    </div>-->
+  <%# elsif student_signed_in? %>
+    <%#= link_to "Schedules", students_schedule_path , class:'head-label7'%>
+    <%#= link_to "Settings", '#' ,class:'head-label8' %>
+    <%#= link_to "Sign out", destroy_student_session_path, method: "delete" ,class:'head-label9'%>
+<!--    <div class="info">-->
+<!--      当前登录学生-->
+      <%#= current_student.name%>
+<!--    </div>-->
+  <%# end %>
+<!--</header>-->

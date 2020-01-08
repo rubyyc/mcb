@@ -1,0 +1,106 @@
+<style type="text/css">
+  .text{width: 50%;}
+  .start-time{width: 50%;color: #B00100;font-size: 150%}
+  div{display: inline}
+</style>
+<!--逻辑麻烦，修改界面请认真阅读，特别是不要缺少<%#end%>-->
+<section class=" mt-7" id="help">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 mx-auto">
+        <h2 class="dot-circle">Schedule Infomation</h2>
+        <p class="text-muted lead">Please check your schedule infomation</p>
+        <% if current_student.scheduled_student %>
+          <% scheduled_student = current_student.scheduled_student %>
+
+
+          <% if scheduled_student.schedules.active.any? %>
+            <% s = scheduled_student.schedules.active[0] %>
+            <% l = s.location %>
+          <div class="row mt-5 card-contacts">
+
+          <div class="col-md-6 mb-3">
+            <div class="card">
+              <div class="card-body text-center">
+                <div class="icon-box">
+                  <div class="icon-box-inner small-xs text-primary">
+                    <span data-feather="inbox" width="30" height="30"></span>
+                  </div>
+                </div>
+
+                  <h5>Basic Infomation</h5>
+                  <div class="start-time"><u><%= "#{l.place}" %></u>  </div>
+                  <div class="start-time"><u><%= "#{l.teacher.name}" %></u></div>
+
+                  <div class="start-time"><u><%= "#{s.scheduled_times}" %></u></div>
+                  <div class="text"> times</div>
+
+              </div>
+
+            </div>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <div class="card">
+              <div class="card-body text-center">
+                <div class="icon-box">
+                  <div class="icon-box-inner small-xs text-primary">
+                    <span data-feather="message-circle" width="30" height="30"></span>
+                  </div>
+                </div>
+
+                <h5>Time Infomation</h5>
+                <% if Time.now < s.next_start_time %>
+
+                  <div class="start-time"><u><%= "#{l.weekday}" %></u></div>
+                  <div class="start-time"><u><%= "#{s.next_start_time}"%></u></div>
+                <% else %>
+                  <div class="start-time"><u>The original time is out,Please Renew Schedule </u></div>
+                  <div><%= link_to "Renew schedule!", renew_students_schedule_path %></div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+            <% elsif scheduled_student.schedules.pending.any? %>
+             <% pending_schedules = scheduled_student.schedules.pending %>
+             <% pending_schedules.each do |s|%>
+             <% l = s.location %>
+            <%= "There are #{check_pending_num(l)} people in front of your schedule at #{l.place}, #{l.weekday}, #{l.start_time.to_s(:hm)}, teacher #{s.teacher.name}" %>
+            <% end %>
+            </div>
+            <% end %>
+          <% else %>
+        <% end %>
+
+        <div class="row mt-5">
+          <div class="col-md-6 mb-5" style="text-align: center">
+            <h6>Do you want to cancel your schedule?</h6>
+            <%= link_to "Destroy schedule!", delete_scheduled_students_path, method: "delete" ,class:"btn btn-primary"%>
+          </div>
+          <div class="col-md-6 mb-5" style="text-align: center">
+            <h6>Creat a new schedule!</h6>
+            <%= link_to 'New schedule!', new_scheduled_students_path,class:"btn btn-primary"%>
+          </div>
+          <div class="col-md-6 mb-5">
+            <h6>Destory</h6>
+            <p class="text-muted">Cancellation of appointment means that consultation will be abandoned</p>
+          </div>
+
+          <div class="col-md-6 mb-5">
+            <h6>Creat</h6>
+            <p class="text-muted">Create a new appointment, you can choose the time and place of your own teacher</p>
+        </div>
+          <div class="col-md-6 mb-5">
+            <h6>Reschedule after cancellation</h6>
+            <p class="text-muted">After canceling you can click new to make an appointment again</p>
+          </div>
+          <div class="col-md-6 mb-5">
+            <h6>Renew after creation</h6>
+            <p class="text-muted">When the last appointment timed out, you can click Renew to renew</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

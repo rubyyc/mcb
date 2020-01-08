@@ -1,0 +1,139 @@
+
+<style>
+  table{width: 90%; margin: 0 5%; text-align: center}
+  th,td{width: 18%;margin: 0 ; padding: 0}
+  .check{width: 10%; float: right; margin: 0; padding: 0 20%} /*想不到吧～还有这种调节方式*/
+  .form-control{width: auto}
+  .newschedule{margin: 0 1.5%}
+  h4{margin: 0 4%}
+  .field{margin: 0 2%}
+  div .go-top {
+    display: none;
+    opacity: 0.6;
+    z-index: 999999;
+    position: fixed;
+    bottom: 113px;
+    left: 97%;
+    margin-left: 40px;
+    border: 1px solid #a38a54;
+    width: 38px;
+    height: 38px;
+    background-color: #eddec2;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  div .go-top:hover {
+    opacity: 1;
+    filter: alpha(opacity=100);
+  }
+  div .go-top div .arrow {
+    position: absolute;
+    left: 10px;
+    top: -1px;
+    width: 0;
+    height: 0;
+    border: 9px solid transparent;
+    border-bottom-color: #cc3333;
+  }
+  div .go-top div .stick {
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    width: 8px;
+    height: 14px;
+    display: block;
+    background-color: #cc3333;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
+    border-radius: 1px;
+  }
+</style>
+<script type="text/javascript">
+    $(function() {
+        $(window).scroll(function() {
+            if ($(window).scrollTop() > 150)
+                $('div.go-top').show();
+            else
+                $('div.go-top').hide();
+        });
+        $('div.go-top').click(function() {
+            $('html, body').animate({scrollTop: 0}, 1000);
+        });
+    });
+</script>
+
+
+
+<body>
+<h3 style="text-align: center" id="top">New Schedule</h3>
+<section class="schedule_form" >
+  <div class="go-top">
+    <div class="arrow"></div>
+    <div class="stick"></div>
+  </div>
+<%= form_for([current_student, @scheduled_student], url:create_scheduled_students_path) do |form| %>
+  <% if @scheduled_student.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@scheduled_student.errors.count, "error") %> prohibited this location from being saved:</h2>
+      <ul>
+        <% @scheduled_student.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <div class="actions">
+      <a class="nav-link page-scroll newschedule" ><%= form.submit "Confirm New schedule." , class:"btn btn-primary"  %></a>
+    </div>
+    <br />
+  <div class="field">
+    <%= form.label :description, "Please describe the topic you want to discuss with teacher." %>
+    <%= text_area :schedule, :description ,class:"form-control"%>
+  </div>
+    <br/>
+  <div class="table">
+    <% Teacher.all.each do |t| %>
+      <% if t.locations.any? %>
+        <h4>Teacher <%= t.name %></h4>
+        <table>
+          <thead>
+          <tr>
+            <th>Place</th>
+            <th>Start Time</th>
+            <th>Finish Time</th>
+            <th>Weekday</th>
+            <th>Need to queue?</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <% t.locations.each do |l| %>
+              <tr class="locations">
+                <td><%= l.place %></td>
+                <td><%= l.start_time.to_formatted_s(format = :hm) %></td>
+                <td><%= l.end_time.to_formatted_s(format = :hm) %></td>
+                <td><%= l.weekday %></td>
+                <td>
+                  <% if l.schedules.any? %>
+                  <%= "Yes, #{check_pending_num(l) + 1} people before you." %>
+                  <% else %>
+                  No
+                <% end %></td>
+                <td class="check" ><%= check_box("schedule[locations]", l.id) %></td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+        <br/>
+      <% end %>
+    <% end %>
+  </div>
+
+<% end %>
+</section>
+
+<!--<section class="scheduled_student">-->
+  <%#= render 'schedule_form' %>
+<!--</section>-->
+</body>

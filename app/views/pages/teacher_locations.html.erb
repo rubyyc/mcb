@@ -1,0 +1,42 @@
+<style type="text/css">
+  h3{text-align: center}
+  /*td{text-align: center;padding: 20px}*/
+  /*th{text-align: center;padding: 20px}*/
+  table{width: 90%; margin: 0 5%; text-align: center}
+  th,td{width: 18%;margin: 0 ; padding: 0}
+</style>
+
+<h3>Locations</h3>
+<br/>
+<% if current_teacher.locations.any? %>
+  <table>
+    <thead>
+    <tr>
+      <th >Place</th>
+      <th >Start Time</th>
+      <th >Finish Time</th>
+      <th >Weekday</th>
+      <th ></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% current_teacher.locations[0..-2].each do |l| %>
+      <tr class="locations">
+        <td ><%= l.place %></td>
+        <td ><%= l.start_time.to_formatted_s(format = :hm) %></td>
+        <td ><%= l.end_time.to_formatted_s(format = :hm) %></td>
+        <td ><%= l.weekday %></td>
+        <td ><%= link_to 'Destroy', l, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+        <td></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <br/>
+<% end %>
+<br/>
+<hr style="width:100%;">
+<section class="location_form">
+  <%= render 'pages/location_form' %>
+</section>

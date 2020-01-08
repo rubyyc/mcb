@@ -1,0 +1,56 @@
+<style type="text/css">
+  h2{text-align: center}
+  h4{text-align: center}
+  /*td{text-align: center;padding: 20px}*/
+  /*th{text-align: center;padding: 20px}*/
+  table{width: 90%; margin: 0 5%; text-align: center}
+  th,td{width: 18%;margin: 0 ; padding: 0}
+</style>
+<h2>Your schedules</h2>
+<br/>
+<table>
+  <thead>
+  <tr>
+    <th >Student Name</th>
+    <th >Date</th>
+    <th >Start Time</th>
+    <th >Place</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @schedules.each do |schedule| %>
+  <tr>
+    <td ><%= schedule.student.name %></td>
+    <td ><%= schedule.next_start_time.strftime("%Y-%m-%d") %></td>
+    <td ><%= schedule.next_start_time.to_s(:hm) %></td>
+    <td ><%= schedule.location.place %></td>
+  </tr>
+  <% end %>
+  </tbody>
+</table>
+<hr style="width:100%;">
+<br/>
+<h4>Over timed schedules (not renew yet)</h4>
+<br/>
+<table>
+  <thead>
+  <tr>
+    <th>Student Name</th>
+    <th>Date</th>
+    <th>Start Time</th>
+    <th>Place</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @over_time_schedules.each do |schedule| %>
+    <tr>
+      <td><%= schedule.student.name %></td>
+      <td><%= schedule.next_start_time.strftime("%Y-%m-%d") %></td>
+      <td><%= schedule.next_start_time.to_s(:hm) %></td>
+      <td><%= schedule.location.place %></td>
+<!--     TODO: -->
+      <td><%= link_to "Destroy", '#' %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
