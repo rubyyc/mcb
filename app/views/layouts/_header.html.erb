@@ -61,11 +61,11 @@
             </li>
             <li class="nav-item ">
               <% if current_teacher.admin? %>
-              <a class="nav-link page-scroll" href="#blog"><%= link_to "Settings", rails_admin_path %></a>
+              <a class="nav-link page-scroll" href="#blog"><%= link_to "Control Panel", rails_admin_path %></a>
                 <% end %>
             </li>
             <li class="nav-item ">
-              <a class="nav-link page-scroll" href="#blog"><%= link_to "Sign out", destroy_teacher_session_path, method: "delete" %></a>
+            <a class="nav-link page-scroll" href="#blog"><%= link_to "Sign out", teachers_sign_out_path, method: "delete" %></a>
             </li>
             <% elsif student_signed_in? %>
             <li class="nav-item ">
@@ -75,7 +75,7 @@
               <a class="nav-link page-scroll" href="#blog"><%= link_to "Settings", '#'  %></a>
             </li>
             <li class="nav-item ">
-              <a class="nav-link page-scroll" href="#blog"><%= link_to "Sign out", destroy_student_session_path, method: "delete" %></a>
+              <a class="nav-link page-scroll" href="#blog"><%= link_to "Sign out", students_sign_out_path, method: "delete" %></a>
             </li>
           <% end %>
         </ul>

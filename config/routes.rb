@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   devise_scope :students do
     get 'students/sign_in', to:'students/sessions#new', as: :students_sign_in
     get 'students/sign_up', to:'students/registrations#new', as: :students_sign_up
+    delete 'students/sign_out', to: 'students/sessions#destroy', as: :students_sign_out
     get 'students/forgot_password', to:'students/passwords#new', as: :students_forgot_password
     get 'students/reset_password', to:'students/password#edit', as: :students_reset_password
     get 'students/schedule', to:'pages#student_schedule', as: :students_schedule
@@ -30,6 +31,7 @@ Rails.application.routes.draw do
     get 'teachers/reset_password', to:'teachers/password#edit', as: :teachers_reset_password
     get 'teachers/locations', to:'pages#teacher_locations', as: :teachers_locations
     get 'teachers/schedules', to:'pages#teacher_schedules', as: :teachers_schedules
+    delete 'teachers/sign_out', to: 'teachers/sessions#destroy', as: :teachers_sign_out
   end
   root 'static_pages#home'
   get 'help' => 'static_pages#help'
