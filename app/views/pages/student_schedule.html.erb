@@ -29,8 +29,8 @@
                 </div>
 
                   <h5>Basic Infomation</h5>
-                  <div class="start-time"><u><%= "#{l.place}" %></u>  </div>
-                  <div class="start-time"><u><%= "#{l.teacher.name}" %></u></div>
+                <div class="start-time"><%= "#{l.place}" %>  </div>&nbsp;
+                <div class="start-time"><%= "#{l.teacher.name}" %></div>&nbsp;
 
                   <div class="start-time"><u><%= "#{s.scheduled_times}" %></u></div>
                   <div class="text"> times</div>
@@ -52,11 +52,10 @@
                 <h5>Time Infomation</h5>
                 <% if Time.now < s.next_start_time %>
 
-                  <div class="start-time"><u><%= "#{l.weekday}" %></u></div>
-                  <div class="start-time"><u><%= "#{s.next_start_time}"%></u></div>
+                  <div class="start-time"><%= "#{l.weekday}" %></div>
+                  <div class="start-time"><%= "#{s.next_start_time}"%>  </div>
                 <% else %>
-                  <div class="start-time"><u>The original time is out,Please Renew Schedule </u></div>
-                  <div><%= link_to "Renew schedule!", renew_students_schedule_path %></div>
+                  <div class="start-time">The original time is out,Please Renew Schedule </div>
                 <% end %>
               </div>
             </div>
@@ -78,10 +77,31 @@
             <h6>Do you want to cancel your schedule?</h6>
             <%= link_to "Destroy schedule!", delete_scheduled_students_path, method: "delete" ,class:"btn btn-primary"%>
           </div>
-          <div class="col-md-6 mb-5" style="text-align: center">
-            <h6>Creat a new schedule!</h6>
-            <%= link_to 'New schedule!', new_scheduled_students_path,class:"btn btn-primary"%>
-          </div>
+          <% if current_student.scheduled_student %>
+            <% scheduled_student = current_student.scheduled_student %>
+
+
+            <% if scheduled_student.schedules.active.any? %>
+              <% s = scheduled_student.schedules.active[0] %>
+              <% if Time.now < s.next_start_time %>
+            <div class="col-md-6 mb-5" style="text-align: center">
+              <h6>Creat a new schedule!</h6>
+              <%= link_to 'New schedule!', new_scheduled_students_path,class:"btn btn-primary"%>
+            </div>
+              <% else %>
+                <div class="col-md-6 mb-5" style="text-align: center">
+                  <h6>Renew a schedule!</h6>
+                  <%= link_to 'Renew schedule!', renew_students_schedule_path,class:"btn btn-primary"%>
+
+                </div>
+              <% end %>
+            <% end %>
+          <% else %>
+            <div class="col-md-6 mb-5" style="text-align: center">
+              <h6>Creat a new schedule!</h6>
+              <%= link_to 'New schedule!', new_scheduled_students_path,class:"btn btn-primary"%>
+            </div>
+          <% end %>
           <div class="col-md-6 mb-5">
             <h6>Destory</h6>
             <p class="text-muted">Cancellation of appointment means that consultation will be abandoned</p>
